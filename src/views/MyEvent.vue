@@ -7,8 +7,7 @@
     <div class="btn" />
     <div
       class="btn2"
-      v-event:tap="tapEvent"
-      v-event:longTap="longTapEvent"
+     
     >
       暗室逢灯单发顺丰
     </div>
@@ -16,7 +15,6 @@
 </template>
 
 <script>
-import MyEvent from '@/utils/my-event.js'
 import utils from '@/utils'
 
 export default {
@@ -26,17 +24,6 @@ export default {
     }
   },
   mounted () {
-    var myUtilEvent = new MyEvent({ select: '.wrap' })
-    this.utilEvent = myUtilEvent
-    myUtilEvent.tap(this.tapWrap)
-    myUtilEvent.longTap(this.longTap)
-    myUtilEvent.leftSlip(this.leftSlip)
-    myUtilEvent.rightSlip(this.rightSlip)
-    myUtilEvent.upSlip(this.upSlip)
-    myUtilEvent.downSlip(this.downSlip)
-    var btnEvent = new MyEvent({ select: '.btn' })
-    btnEvent.upSlip(this.upSlip2, true)
-    btnEvent.longTap(this.longTap2, this.longTapEnd)
   },
   methods: {
     tapWrap () {
@@ -73,7 +60,6 @@ export default {
       return Promise.resolve(1)
     },
     pageDestory () {
-      this.destory()
     },
     tapEvent () {
       utils.log.default('2222222222')
@@ -84,10 +70,6 @@ export default {
     endHandle () {
       utils.log.default('6666666')
     }
-  },
-  beforeDestroy () {
-    // console.log(this.observer)
-    // this.utilEvent && this.utilEvent.notify && this.utilEvent.notify()
   }
 }
 </script>

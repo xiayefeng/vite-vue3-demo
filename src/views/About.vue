@@ -74,7 +74,7 @@
   </div>
 </template>
 <script>
-import SheetAction from 'components/common/SheetAction'
+// import SheetAction from 'components/common/SheetAction'
 // import html2canvas from 'html2canvas'
 import utils, { isInViewPort, oberverDOM } from '@/utils'
 import { myFn } from '@/utils/wx'
@@ -309,7 +309,7 @@ export default {
     }
   },
   components: {
-    SheetAction
+    // SheetAction
   }
 }
 </script>

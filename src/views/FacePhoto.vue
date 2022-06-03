@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import tracking from 'tracking'
+// import tracking from 'tracking'
 import { isEmpty } from '@/utils'
 export default {
   data () {
@@ -78,10 +78,10 @@ export default {
       await this.onPlay()
     },
     async onPlay () {
-      this.onTrackTracking()
+      // this.onTrackTracking()
     },
     onTrackTracking () {
-      const context = this
+      /* const context = this
       const video = this.videoEl
       const canvas = this.canvasEL
       const canvasContext = canvas.getContext('2d')
@@ -118,7 +118,7 @@ export default {
           if (context.count < 0) context.isdetected = '请您保持脸部在画面中央'
           // this.isdetected = '已检测到人脸，正在登录'
         }
-      })
+      }) */
     },
     getMediaStreamSuccess (stream) {
       window.stream = stream // make stream available to browser console

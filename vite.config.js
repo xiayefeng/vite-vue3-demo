@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 const path = require('path')
+const resolveExternalsPlugin = require('vite-plugin-resolve-externals')
 
 function resolve (dir) {
   return path.join(__dirname, dir)
@@ -9,7 +10,14 @@ function resolve (dir) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    resolveExternalsPlugin({
+      'AMap': 'AMap',
+      'wx': 'wx',
+      'xlsx': 'XLSX'
+    })
+  ],
   resolve: {
     alias: {'@': resolve('src')}
   },
