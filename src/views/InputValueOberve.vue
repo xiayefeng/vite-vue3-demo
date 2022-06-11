@@ -1,8 +1,8 @@
 <template>
   <div class="main-wrap">
     <input
-      type="text"
       id="txt"
+      type="text"
       @input="changeText"
     >
   </div>

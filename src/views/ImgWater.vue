@@ -9,12 +9,12 @@
     <img
       ref="img"
       class="image hide-img"
-      src="imgUrl"
+      src=""
       alt="#"
     >
     <img
-      class="image"
       ref="resImg"
+      class="image"
       src=""
       alt="##"
     >

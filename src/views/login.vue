@@ -1,12 +1,23 @@
 <template>
   <div class="login-wrap">
     <div class="user-wrap">
-      <input type="text" placeholder="用户名" v-model.lazy="name">
+      <input
+        v-model.lazy="name"
+        type="text"
+        placeholder="用户名"
+      >
     </div>
     <div class="ps-wrap">
-      <input type="password" placeholder="密码" v-model="ps">
+      <input
+        v-model="ps"
+        type="password"
+        placeholder="密码"
+      >
     </div>
-    <button class="login-btn" type="button">
+    <button
+      class="login-btn"
+      type="button"
+    >
       登陆
     </button>
   </div>
@@ -15,6 +26,7 @@
 <script>
 import md5 from 'js-md5'
 export default {
+  name: 'LoginPage',
   data () {
     return {
       name: '',

@@ -18,14 +18,15 @@
 
 <script>
 export default {
-  props: {},
   components: {},
+  props: {},
   data () {
     return {
       audio: null
     }
   },
   computed: {},
+  watch: {},
   created () {},
   mounted () {
     let audio = document.querySelector('.audio')
@@ -35,7 +36,7 @@ export default {
       console.log(audio.currentTime)
     }, 500)
   },
-  beforeDestroy () {
+  beforeUnmount () {
     // console.log('aaa')
     // console.log(this.audio)
     if (!this.audio.paused) {
@@ -50,7 +51,6 @@ export default {
       audio.pause()
     } */
   },
-  watch: {},
   methods: {}
 }
 </script>

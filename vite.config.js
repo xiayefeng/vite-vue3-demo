@@ -1,5 +1,9 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import legacy from '@vitejs/plugin-legacy'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import eslint from 'vite-plugin-eslint'
 const path = require('path')
 const resolveExternalsPlugin = require('vite-plugin-resolve-externals')
 
@@ -12,6 +16,21 @@ function resolve (dir) {
 export default defineConfig({
   plugins: [
     vue(),
+    vueJsx(),
+    eslint({
+      cache: false,
+      fix: true
+    }),
+    createSvgIconsPlugin({
+      iconDirs: [path.resolve(process.cwd(), 'src/assets/svg-icon')],
+      // symbolId: 'icon-[dir]-[name]'
+      symbolId: '[dir]-[name]'
+    }),
+    legacy(
+      {
+        targets: ['defaults', 'not IE 11']
+      }
+    ),
     resolveExternalsPlugin({
       'AMap': 'AMap',
       'wx': 'wx',

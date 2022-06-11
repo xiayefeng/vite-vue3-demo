@@ -58,10 +58,11 @@ import HelloWorld from '@/components/HelloWorld.vue'
 // import util from 'utils'
 // import showLoading from '@/components/common/showLoading'
 export default {
-  name: 'Home',
+  name: 'HomePage',
   components: {
     HelloWorld
   },
+  inject: ['reload'],
   data () {
     return {
       instance: null
@@ -81,7 +82,10 @@ export default {
     window.addEventListener('pageshow', this.pageShow)
     // console.log(top.window)
   },
-  inject: ['reload'],
+  beforeUnmount () {
+    document.removeEventListener('visibilitychange', this.visibilityChange)
+    window.removeEventListener('pageshow', this.pageShow)
+  },
   methods: {
     login () {
       // this.instance = showLoading({ message: '数据请求中' })
@@ -110,10 +114,6 @@ export default {
     pageShow () {
       console.log('page show')
     }
-  },
-  beforeDestroy () {
-    document.removeEventListener('visibilitychange', this.visibilityChange)
-    window.removeEventListener('pageshow', this.pageShow)
   }
 }
 </script>

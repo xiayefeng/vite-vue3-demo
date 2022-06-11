@@ -6,8 +6,8 @@
       name="pengyouquan"
     />
     <input
-      type="text"
       v-model="text"
+      type="text"
       @keyup="search"
     >
     <button @click="goTable">
@@ -56,13 +56,13 @@
       @close-mask="closeMask"
     >
       <ul
-        @click.stop="stopBubble"
         class="list-wrap"
+        @click.stop="stopBubble"
       >
         <li
-          class="list"
           v-for="(item, index) of list"
           :key="index"
+          class="list"
         >
           {{ item }}
         </li>
@@ -88,6 +88,10 @@ let delay = Promise.resolve()
 let timer = null
 
 export default {
+  name: 'AboutPage',
+  components: {
+    // SheetAction
+  },
   data () {
     // console.log('data---', this.$route.path)
     return {
@@ -153,8 +157,8 @@ export default {
         id: '3'
       }
     ])
-    const timer = setInterval(() => {}, 1000)
-    this.$once('hook:beforeDestroy', () => clearInterval(timer))
+    
+     setInterval(() => {}, 1000)
   },
   methods: {
     showFaAction () {
@@ -307,9 +311,6 @@ export default {
         alert('不支持获取位置信息!')
       }
     }
-  },
-  components: {
-    // SheetAction
   }
 }
 </script>
