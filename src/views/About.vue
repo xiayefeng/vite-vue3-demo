@@ -14,7 +14,7 @@
       表格
     </button>
     <BaseIconSvg name="add" />
-    <Title>{{ title }}</Title>
+    <div>{{ title }}</div>
     <button @click="showFaAction">
       显示Action
     </button>

@@ -1,11 +1,10 @@
 export default class indexedDB {
- 
+  databaseName = 'myIndexedDB'
+  db = null
+  request = window.indexedDB.open(this.databaseName)
+  keySet = new Set()
   constructor () {
     this.init()
-    this.databaseName = 'myIndexedDB'
-    this.db = null
-    this.request = window.indexedDB.open(this.databaseName)
-    this.keySet = new Set()
   }
   
   
