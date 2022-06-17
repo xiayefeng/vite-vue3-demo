@@ -82,6 +82,10 @@ export const isNumber = function isNumber (value) {
   return typeof value === 'number' && isFinite(value)
 }
 
+export function close() {
+  window.open("about:blank", "_top").close()
+}
+
 export const isNumeric = function isNumeric (value) {
   return value - parseFloat(value) >= 0
 }

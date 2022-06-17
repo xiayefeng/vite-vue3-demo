@@ -1,8 +1,8 @@
 <template>
   <div class="table-wrap">
     <table
-      class="table"
       :id="tableId"
+      class="table"
     >
       <thead class="thead">
         <tr>
@@ -97,7 +97,7 @@ export default {
     .line {
       line-height: 2.4rem;
     }
-    :deep .heigh-line {
+    :deep(.heigh-line) {
       background: rgba(26, 42, 98, 0.35);
     }
   }

@@ -157,8 +157,8 @@ export default {
         id: '3'
       }
     ])
-    
-     setInterval(() => {}, 1000)
+
+    setInterval(() => { }, 1000)
   },
   methods: {
     showFaAction () {
@@ -320,20 +320,24 @@ export default {
   font-size: dw(32);
   min-height: 3000px;
 }
+
 .ali-icon {
   font-size: dw(72);
 }
+
 .list-wrap {
   font-size: dw(36);
   max-height: dw(400);
   overflow-y: scroll;
-  :deep .list {
+
+  :deep(.list) {
     height: dw(80);
     line-height: dw(80);
     background: #fff;
     border-bottom: 1px solid #efefef;
   }
 }
+
 .bottom-btn {
   width: 100%;
   height: dw(80);

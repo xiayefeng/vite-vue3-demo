@@ -25,6 +25,13 @@
       >
         表单
       </button>
+      <button v-copy="formData.text">
+        copy
+      </button>
+      <input
+        v-model="formData.text"
+        type="text"
+      >
     </div>
     <HelloWorld msg="Welcome to Your Vue.js App" />
     <marquee>滚动文字</marquee>
@@ -65,7 +72,10 @@ export default {
   inject: ['reload'],
   data () {
     return {
-      instance: null
+      instance: null,
+      formData: {
+        text: 'eeee'
+      }
     }
   },
   created () {
@@ -121,32 +131,40 @@ export default {
 .home {
   margin-bottom: 50px;
 }
+
 .btn-wrap {
   height: dw(80);
   line-height: dw(80);
 }
-.bottom-link{
+
+.bottom-link {
   font-size: dw(30);
 }
+
 .refresh-btn {
   margin: 0 dw(30);
 }
+
 .event-btn {
   margin-right: dw(30);
 }
+
 .svg-wrap {
   width: 80px;
   height: 80px;
   margin-left: 20px;
+
   .svg-icon {
     fill: #ccc;
   }
-  :deep .small {
+
+  :deep(.small) {
     fill: #fff;
     font-size: 20px;
     color: #fff;
   }
 }
+
 .sector {
   border-radius: 80px 0 0;
   width: 80px;

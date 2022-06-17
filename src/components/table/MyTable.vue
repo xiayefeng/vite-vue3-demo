@@ -43,6 +43,9 @@
 import TableBody from './table-body'
 
 export default {
+  components: {
+    TableBody
+  },
   props: {
     headObj: {
       type: Object,
@@ -65,20 +68,17 @@ export default {
       required: true
     }
   },
-  components: {
-    TableBody
-  },
   data () {
     return {
       rowClass: []
     }
   },
   computed: {},
+  watch: {
+  },
   created () {
   },
   mounted () {
-  },
-  watch: {
   },
   methods: {
   }
@@ -129,7 +129,7 @@ export default {
     .line {
       line-height: 2.4rem;
     }
-    :deep .heigh-line {
+    :deep(.heigh-line) {
       background: rgba(26, 42, 98, 0.35);
     }
   }
