@@ -19,7 +19,13 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
-    <script src="//webapi.amap.com/maps?v=1.4.11&key=170798865d0f943e610cd00a62fb5215"></script>
+    <script>
+      window._AMapSecurityConfig = {
+            serviceHost:'https://www.sjfx.top/_AMapService',  
+            // 例如 ：serviceHost:'http://1.1.1.1:80/_AMapService',
+        }
+    </script>
+    <script src="//webapi.amap.com/maps?v=1.4.15&key=c6b8e3c3f7c3fc931cc441b4929784f6"></script>
     <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
     <script src="//at.alicdn.com/t/font_221319_kl2xbcwhbw.js"></script>
     <script src="//lf3-cdn-tos.bytecdntp.com/cdn/expire-1-y/xlsx/0.18.2/xlsx.min.js"></script>
