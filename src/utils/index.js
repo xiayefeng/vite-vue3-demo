@@ -194,6 +194,15 @@ export function find (list, f) {
   return list.filter(f)[0]
 }
 
+export function validExpression(expression) {
+  try{
+    new Function('return '+ expression)
+    return true
+  } catch(err) {
+    return false
+  }
+}
+
 export function hasOwn2 (obj, key) {
   return obj != null && _has.call(obj, key)
 }
