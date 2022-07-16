@@ -38,7 +38,7 @@ export default defineConfig({
     })
   ],
   resolve: {
-    alias: {'@': resolve('src')}
+    alias: { '@': resolve('src') }
   },
   css: {
     preprocessorOptions: {
@@ -47,19 +47,20 @@ export default defineConfig({
       },
     },
   },
-  /* server: {
-    hmr: { overlay: false }, // 为 false 可以禁用服务器错误遮罩层
+  server: {
+    // hmr: { overlay: false }, // 为 false 可以禁用服务器错误遮罩层
     port: 9527,
     open: false,
     host: '0.0.0.0',
-  }, */
-  // proxy: {
-  //   '/api': {
-  //     target: 'http://jsonplaceholder.typicode.com',
-  //     changeOrigin: true,
-  //     rewrite: (path) => path.replace(/^\/api/, ''),
-  //   },
-  // },
+    proxy: {
+      '/api': {
+        target: 'http://192.168.56.1:3000',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
+
   build: {
     cssCodeSplit: false, // 整个项目中的所有 CSS 将被提取到一个 CSS 文件中
     chunkSizeWarningLimit: 1500, // chunk 大小警告的限制（以 kbs 为单位）

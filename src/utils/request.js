@@ -6,17 +6,13 @@ import qs from 'qs'
 // import { strHash } from './index'
 // import md5 from 'js-md5'
 
-export const reqArr = []
-
-const fastClickMsg = '数据请求中，请稍后'
-
-const CancelToken = axios.CancelToken
+export const reqMap = new Map()
 
 const removePendingReq = (url, type) => {
-  const index = reqArr.findIndex(i => i.url === url)
-  if (index > -1) {
-    type === 'req' && reqArr[index].c(fastClickMsg)
-    reqArr.splice(index, 1)
+  const item = reqMap.get(url)
+  if (item) {
+    type === 'req' && item.abort()
+    reqMap.delete(url)
   }
 }
 
@@ -29,18 +25,16 @@ instance.defaults.timeout = 10000
 instance.interceptors.request.use(
   config => {
     let url = config.url
-    if (config.method === 'get') {
+    console.log(config)
+    /* if (config.method === 'get') {
       url += '?' + qs.stringify(config.params)
-    } /* else if (config.method === 'post') {
-      url += '?' + md5(qs.stringify(config.data))
     } */
-    removePendingReq(url, 'req')
-    config.cancelToken = new CancelToken(c => {
-      reqArr.push({
-        url,
-        c
-      })
-    })
+    if (config.signalRequest) {
+      removePendingReq(url, 'req')
+      const controller = new AbortController()
+      config.signal = controller.signal
+      reqMap.set(url, controller)
+    }
     if (config.data instanceof FormData) {
       config.headers['Content-Type'] = 'multipart/form-data'
       /* let formData = new FormData()
@@ -59,15 +53,15 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   resp => {
-    // console.log(resp)
     const res = resp.data
     let url = resp.config.url
-    if (resp.config.method === 'get') {
+    /* if (resp.config.method === 'get') {
       url += '?' + qs.stringify(resp.config.params)
-    } /* else if (resp.config.method === 'post') {
-      url += '?' + md5(resp.config.data)
     } */
-    removePendingReq(url, 'resp')
+    if (resp.config.signalRequest) {
+      removePendingReq(url, 'resp')
+    }
+
     if (res.code === 0) {
       return Promise.resolve(res)
     } else {
@@ -80,6 +74,8 @@ instance.interceptors.response.use(
       error.message = '网络不给力，请稍后再试'
     } else if (error.message.includes('timeout')) {
       error.message = '请求超时，请稍后重试'
+    } else if (axios.isCancel(error)) {
+      error.message = '请求已取消'
     } else if (typeof error.code === 'undefined') {
       error.message = '连接出错，请重试'
     }

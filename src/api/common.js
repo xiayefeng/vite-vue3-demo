@@ -1,9 +1,9 @@
 import req from '@/utils/request'
 
-export function reqGet (url, params) {
-  return req({ url, params })
+export function reqGet (url, params, config) {
+  return req({ url, params, ...config })
 }
 
-export function reqPost (url, data) {
-  return req({ url, data, method: 'post' })
+export function reqPost (url, data, config) {
+  return req({ url, data, method: 'post', ...config })
 }

@@ -64,6 +64,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 // import { reqGet } from '@/api/common'
 // import util from 'utils'
 // import showLoading from '@/components/common/showLoading'
+import { reqGet } from '@/api/common.js'
 export default {
   name: 'HomePage',
   components: {
@@ -85,6 +86,8 @@ export default {
     }).catch(err => {
       console.log(err)
     }) */
+    this.getData()
+    this.getData()
   },
   mounted () {
     console.log('home mounted')
@@ -92,6 +95,7 @@ export default {
     window.addEventListener('pageshow', this.pageShow)
     // console.log(top.window)
   },
+
   beforeUnmount () {
     document.removeEventListener('visibilitychange', this.visibilityChange)
     window.removeEventListener('pageshow', this.pageShow)
@@ -105,7 +109,8 @@ export default {
     eventTest () {
       // this.instance.close()
       // showLoading.hide()
-      this.$router.push('/event')
+      this.getData()
+      // this.$router.push('/event')
     },
     formSubmit () {
       this.$router.push('/form')
@@ -120,6 +125,13 @@ export default {
       if (document.visibilityState === 'visible') {
         console.log('页面显示了')
       }
+    },
+    getData () {
+      reqGet('/api', { a: 1, b: 2 }, { signalRequest: 1 }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     pageShow () {
       console.log('page show')
