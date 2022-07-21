@@ -82,7 +82,7 @@ export const isNumber = function isNumber (value) {
   return typeof value === 'number' && isFinite(value)
 }
 
-export function close() {
+export function close () {
   window.open("about:blank", "_top").close()
 }
 
@@ -194,11 +194,11 @@ export function find (list, f) {
   return list.filter(f)[0]
 }
 
-export function validExpression(expression) {
-  try{
-    new Function('return '+ expression)
+export function validExpression (expression) {
+  try {
+    Reflect.construct(Function, ['return ' + expression])
     return true
-  } catch(err) {
+  } catch (err) {
     return false
   }
 }
@@ -662,7 +662,7 @@ utils.parseBoolean = function (str) {
   var ret = false
   try {
     ret = JSON.parse(str)
-  } catch (e) {}
+  } catch (e) { }
 
   return ret
 }
@@ -1273,7 +1273,7 @@ getData({
   responseType: 'arraybuffer'
 })
   .then(res => {
-  // 假设 data 是返回来的二进制数据
+    // 假设 data 是返回来的二进制数据
     const data = res && res.data
     if (!data) return
     const url = window.URL.createObjectURL(new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }))
