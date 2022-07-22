@@ -108,11 +108,13 @@ export default {
     }
 
     let observer = new IntersectionObserver(callback, options);
-
+    const wrap = document.querySelector('.text-wrap').childNodes
     function callback (entries, observer) {
       console.log(entries)
+      observer.unobserve(document.querySelector('.text-wrap'))
     }
-    document.querySelector('.text-wrap').childNodes.forEach(item => {
+
+    wrap.forEach(item => {
       // console.log(item)
       observer.observe(item);
     })
