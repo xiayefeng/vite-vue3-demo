@@ -35,6 +35,13 @@
     </div>
     <HelloWorld msg="Welcome to Your Vue.js App" />
     <marquee>滚动文字</marquee>
+    <div class="text-wrap">
+      <span>asdfasfasfdasfdasdf</span>
+      <span>asdfasfasfdasfdasdf</span>
+      <span>asdfasfasfdasfdasdf</span>
+      <span>asdfasfasfdasfdasdf</span>
+      <span>asdfasfasfdasfdasdf</span>
+    </div>
     <div class="svg-wrap">
       <svg
         class="svg-icon"
@@ -90,9 +97,26 @@ export default {
     this.getData()
   },
   mounted () {
-    console.log('home mounted')
+
     document.addEventListener('visibilitychange', this.visibilityChange)
     window.addEventListener('pageshow', this.pageShow)
+
+    let options = {
+      root: document.querySelector('.text-wrap'),
+      rootMargin: '0px',
+      threshold: 0.5
+    }
+
+    let observer = new IntersectionObserver(callback, options);
+
+    function callback (entries, observer) {
+      console.log(entries)
+    }
+    document.querySelector('.text-wrap').childNodes.forEach(item => {
+      // console.log(item)
+      observer.observe(item);
+    })
+    console.log('home mounted')
     // console.log(top.window)
   },
 
@@ -155,6 +179,12 @@ export default {
 
 .refresh-btn {
   margin: 0 dw(30);
+}
+
+.text-wrap {
+  width: 80%;
+  margin: 0 auto;
+  @include text-overflow;
 }
 
 .event-btn {
