@@ -25,7 +25,6 @@ instance.defaults.timeout = 10000
 instance.interceptors.request.use(
   config => {
     let url = config.url
-    console.log(config)
     /* if (config.method === 'get') {
       url += '?' + qs.stringify(config.params)
     } */

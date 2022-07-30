@@ -35,7 +35,10 @@
     </div>
     <HelloWorld msg="Welcome to Your Vue.js App" />
     <marquee>滚动文字</marquee>
-    <div class="text-wrap">
+    <div
+      ref="textWrap"
+      class="text-wrap"
+    >
       <span>asdfasfasfdasfdasdf</span>
       <span>asdfasfasfdasfdasdf</span>
       <span>asdfasfasfdasfdasdf</span>
@@ -100,18 +103,27 @@ export default {
 
     document.addEventListener('visibilitychange', this.visibilityChange)
     window.addEventListener('pageshow', this.pageShow)
-
+    let textWrap = this.$refs.textWrap
     let options = {
-      root: document.querySelector('.text-wrap'),
+      root: textWrap,
       rootMargin: '0px',
       threshold: 0.5
     }
 
     let observer = new IntersectionObserver(callback, options);
-    const wrap = document.querySelector('.text-wrap').childNodes
+    const wrap = textWrap.childNodes
+
     function callback (entries, observer) {
-      console.log(entries)
-      observer.unobserve(document.querySelector('.text-wrap'))
+      let hideNum = 0
+      // console.log(entries)
+      entries.forEach(item => {
+        if (!item.isIntersecting) {
+          hideNum++
+        }
+      })
+      console.log(hideNum)
+      observer.unobserve(textWrap)
+      textWrap = null
     }
 
     wrap.forEach(item => {
@@ -215,4 +227,5 @@ export default {
   height: 80px;
   background: #0000ff;
 }
+
 </style>
