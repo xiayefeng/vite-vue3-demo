@@ -39,6 +39,11 @@ function checkProvince (card) {
   return true;
 }
 
+/**
+ * 验证身份证里日期是否正确
+ * @param {string} card 身份证号
+ * @returns {boolean}
+ */
 function checkDate (card) {
   var date = card.slice(6, 14)
   if (!DATE_REG.test(date)) {
@@ -55,7 +60,11 @@ function checkDate (card) {
   }
 }
 
-
+/**
+ * 验证身份证最后一位校验位是否正确
+ * @param {string} card 身份证号
+ * @returns {boolean}
+ */
 function checkLastInt (card) {
   let cardTemp = 0
   let i
