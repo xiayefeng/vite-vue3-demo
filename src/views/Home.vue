@@ -45,6 +45,9 @@
       <span>asdfasfasfdasfdasdf</span>
       <span>asdfasfasfdasfdasdf</span>
     </div>
+    <div class="break-wrap">
+      {{ 'asdfsaf\nasdfsafsa\nasdfasfasdf' }}
+    </div>
     <div class="svg-wrap">
       <svg
         class="svg-icon"
@@ -182,6 +185,10 @@ export default {
   margin-bottom: 50px;
 }
 
+.break-wrap {
+  white-space: pre-line;
+}
+
 .btn-wrap {
   height: dw(80);
   line-height: dw(80);
@@ -227,5 +234,4 @@ export default {
   height: 80px;
   background: #0000ff;
 }
-
 </style>
