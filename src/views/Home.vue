@@ -77,7 +77,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 // import { reqGet } from '@/api/common'
 // import util from 'utils'
 // import showLoading from '@/components/common/showLoading'
-import { reqGet } from '@/api/common.js'
+import { reqGet, reqPost } from '@/api/common.js'
 export default {
   name: 'HomePage',
   components: {
@@ -151,6 +151,7 @@ export default {
       // this.instance.close()
       // showLoading.hide()
       this.getData()
+      this.setData()
       // this.$router.push('/event')
     },
     formSubmit () {
@@ -173,6 +174,19 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+      reqGet('/api/userInfo', { a: 3, b: 4 }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    setData () {
+      reqPost('/api/user/setUserData', { name: '张三', phone: '123456', pw: 'daddd' })
+        .then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
     },
     pageShow () {
       console.log('page show')

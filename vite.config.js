@@ -53,11 +53,12 @@ export default defineConfig({
     open: false,
     host: '0.0.0.0',
     proxy: {
-      // '/api': {
-      //   target: 'http://192.168.56.1:3000',
-      //   changeOrigin: true,
-      //   // rewrite: (path) => path.replace(/^\/api/, ''),
-      // },
+      '/api': {
+        // target: 'http://192.168.56.1:3000',
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
+      },
     },
   },
 
