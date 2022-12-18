@@ -2,10 +2,11 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import legacy from '@vitejs/plugin-legacy'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import eslint from 'vite-plugin-eslint'
-const path = require('path')
-const resolveExternalsPlugin = require('vite-plugin-resolve-externals')
+import path from 'node:path'
+import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 
 function resolve (dir) {
   return path.join(__dirname, dir)
@@ -35,7 +36,8 @@ export default defineConfig({
       'AMap': 'AMap',
       'wx': 'wx',
       'xlsx': 'XLSX'
-    })
+    }),
+    basicSsl()
   ],
   resolve: {
     alias: { '@': resolve('src') }
@@ -49,14 +51,16 @@ export default defineConfig({
   },
   server: {
     // hmr: { overlay: false }, // 为 false 可以禁用服务器错误遮罩层
-    port: 9527,
+    port: 9988,
     open: false,
     host: '0.0.0.0',
+    https: true,
     proxy: {
       '/api': {
         // target: 'http://192.168.56.1:3000',
-        target: 'http://localhost:8080',
+        target: 'https://localhost:8080',
         changeOrigin: true,
+        secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/api')
       },
     },
