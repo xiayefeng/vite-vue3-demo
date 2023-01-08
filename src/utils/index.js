@@ -203,6 +203,13 @@ export function validExpression (expression) {
   }
 }
 
+export function getFullNum (num) {
+  if (isNaN(num)) { return num }
+  var str = '' + num
+  if (!/e/i.test(str)) { return num }
+  return (num).toFixed(20).replace(/\.?0+$/, '')
+}
+
 export function hasOwn2 (obj, key) {
   return obj != null && _has.call(obj, key)
 }
