@@ -203,6 +203,10 @@ export function validExpression (expression) {
   }
 }
 
+export function removeTailZero(num){
+  return String(num).replace(/(\b\.)?0+$/, '')
+}
+
 export function getFullNum (num) {
   if (isNaN(num)) { return num }
   var str = '' + num
