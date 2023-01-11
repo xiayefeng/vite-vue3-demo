@@ -203,7 +203,11 @@ export function validExpression (expression) {
   }
 }
 
-export function removeTailZero(num){
+export function generateUUID2 () {
+  return self.crypto.randomUUID()
+}
+
+export function removeTailZero (num) {
   return String(num).replace(/(\b\.)?0+$/, '')
 }
 
