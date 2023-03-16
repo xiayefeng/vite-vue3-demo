@@ -5,16 +5,18 @@ import axios from 'axios'
 import qs from 'qs'
 // import { strHash } from './index'
 // import md5 from 'js-md5'
+import CancelAxios from './cancleController'
 
-export const reqMap = new Map()
+const cancelAxios = new CancelAxios()
+// export const reqMap = new Map()
 
-const removePendingReq = (url, type) => {
+/* const removePendingReq = (url, type) => {
   const item = reqMap.get(url)
   if (item) {
     type === 'req' && item.abort()
     reqMap.delete(url)
   }
-}
+} */
 
 const instance = axios.create({
   // baseURL: 'https://api.example.com'
@@ -29,10 +31,12 @@ instance.interceptors.request.use(
       url += '?' + qs.stringify(config.params)
     } */
     if (config.signalRequest) {
-      removePendingReq(url, 'req')
-      const controller = new AbortController()
-      config.signal = controller.signal
-      reqMap.set(url, controller)
+      // removePendingReq(url, 'req')
+      cancelAxios.removePendingReq(url, 'req')
+      // const controller = new AbortController()
+      // config.signal = controller.signal
+      // reqMap.set(url, controller)
+      cancelAxios.addController(config)
     }
     if (config.data instanceof FormData) {
       config.headers['Content-Type'] = 'multipart/form-data'
@@ -54,11 +58,13 @@ instance.interceptors.response.use(
   resp => {
     const res = resp.data
     let url = resp.config.url
+    
     /* if (resp.config.method === 'get') {
       url += '?' + qs.stringify(resp.config.params)
     } */
     if (resp.config.signalRequest) {
-      removePendingReq(url, 'resp')
+      // removePendingReq(url, 'resp')
+      cancelAxios.removePendingReq(url, 'resp')
     }
 
     if (res.code === 0) {
