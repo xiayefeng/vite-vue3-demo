@@ -1,3 +1,11 @@
+/*
+ * @Author: xiayefeng xiayu_12@yeah.net
+ * @Date: 2022-04-10 11:15:09
+ * @LastEditors: xiayefeng xiayu_12@yeah.net
+ * @LastEditTime: 2023-03-18 01:31:07
+ * @FilePath: \vite-vue3-demo\vite.config.js
+ * @Description: 
+ */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -58,7 +66,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'http://192.168.56.1:3000',
-        target: 'https://localhost:8080',
+        target: 'http://localhost:8080',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/api')

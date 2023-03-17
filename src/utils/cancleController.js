@@ -1,8 +1,8 @@
 /*
  * @Author: Anyuxuan xiayu_12@yeah.net
  * @Date: 2023-03-17 00:06:28
- * @LastEditors: Anyuxuan xiayu_12@yeah.net
- * @LastEditTime: 2023-03-17 00:09:18
+ * @LastEditors: xiayefeng xiayu_12@yeah.net
+ * @LastEditTime: 2023-03-18 01:47:47
  * @FilePath: \vite-vue3-demo\src\utils\cancleController.js
  * @Description: 
  */
@@ -16,7 +16,7 @@ export default class CancelAxios {
       reqMap.delete(url)
     }
   }
-  addController (config) {
+  addController (url, config) {
     const controller = new AbortController()
     config.signal = controller.signal
     reqMap.set(url, controller)

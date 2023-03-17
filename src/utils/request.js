@@ -26,7 +26,7 @@ instance.defaults.timeout = 10000
 
 instance.interceptors.request.use(
   config => {
-    let url = config.url
+    const url = config.url
     /* if (config.method === 'get') {
       url += '?' + qs.stringify(config.params)
     } */
@@ -36,7 +36,7 @@ instance.interceptors.request.use(
       // const controller = new AbortController()
       // config.signal = controller.signal
       // reqMap.set(url, controller)
-      cancelAxios.addController(config)
+      cancelAxios.addController(url, config)
     }
     if (config.data instanceof FormData) {
       config.headers['Content-Type'] = 'multipart/form-data'
@@ -57,8 +57,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   resp => {
     const res = resp.data
-    let url = resp.config.url
-    
+    const url = resp.config.url
     /* if (resp.config.method === 'get') {
       url += '?' + qs.stringify(resp.config.params)
     } */

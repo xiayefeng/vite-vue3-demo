@@ -19,6 +19,9 @@
       >
         事件
       </button>
+      <button @click="getToken">
+        获取token
+      </button>
       <button
         class="form"
         @click="formSubmit"
@@ -146,6 +149,11 @@ export default {
       // this.instance = showLoading({ message: '数据请求中' })
       // showLoading.show({ msg: '数据请求中' })
       this.$router.push('/login')
+    },
+    getToken () {
+      reqPost('/api/getUploadToken', { bucket: 'wxu' }).then(res => {
+        console.log(res)
+      })
     },
     eventTest () {
       // this.instance.close()
