@@ -2,7 +2,7 @@
  * @Author: xiayefeng xiayu_12@yeah.net
  * @Date: 2022-04-10 11:15:09
  * @LastEditors: xiayefeng xiayu_12@yeah.net
- * @LastEditTime: 2023-03-18 01:31:07
+ * @LastEditTime: 2023-03-18 11:06:54
  * @FilePath: \vite-vue3-demo\vite.config.js
  * @Description: 
  */
@@ -66,7 +66,8 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'http://192.168.56.1:3000',
-        target: 'http://localhost:8080',
+        // target: 'http://localhost:8080',
+        target: 'https://sjfx.top:8080',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/api')
