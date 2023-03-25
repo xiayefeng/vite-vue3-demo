@@ -77,6 +77,49 @@ export const isEmptyObject = function isEmptyObject (obj) {
 
   return true
 }
+// 生成唯一key   
+
+/**
+ * 
+ * @param {array} list 生成唯一key的数组
+ * @param {string} generateKey 参考数值项的字段名 默认 ''
+ * @param {*} keyName 生成的唯一key的字段名，默认 '-uKey'
+ * @returns 
+ */
+export function generateUniqueKey (list, generateKey = '', keyName = '_uKey') {
+  if (Array.isArray(list) && list.length) {
+    const set = new Set()
+    let key = ''
+    list.forEach((item, idx) => {
+      if (generateKey && item[generateKey] != null) {
+        key = item[generateKey]
+        if (set.has(key)) {
+          key = key + String(idx)
+        }
+      } else {
+        key = generateUniqueId()
+      }
+      item[keyName] = key
+      set.add(key)
+    })
+  }
+  return list
+}
+
+export function generateUniqueId () {
+  if (typeof window !== 'undefined') {
+    if (self?.crypto?.randomUUID) {
+      return self.crypto.randomUUID()
+    } else {
+      return Date.now().toString(36) + Math.random().toString(36).slice(1)
+    }
+  } else {
+    const {
+      randomUUID
+    } = require('node:crypto')
+    return randomUUID()
+  }
+}
 
 export const isNumber = function isNumber (value) {
   return typeof value === 'number' && isFinite(value)

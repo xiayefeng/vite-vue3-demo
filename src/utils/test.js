@@ -3,7 +3,7 @@
 // import _ from 'lodash'
 
 // 构造函数原型模式
-function Person () {}
+function Person () { }
 Person.prototype = {
   name: 'JeeK',
   age: 29,
@@ -17,7 +17,7 @@ Object.defineProperty(Person.prototype, 'constructor', {
   value: Person
 })
 
-export function margeObj () {
+function margeObj () {
   /* const arr = [
     {
       x: 'aa',
@@ -69,19 +69,19 @@ export function margeObj () {
       i++
     }
   } */
-/*   arr.reduce((prev, curr, idx) => {
-    if (idx === 1) {
-      obj[prev.x] = 0
-      arr2.push(prev)
-    }
-    if (hasOwn(obj, curr.x)) {
-      arr2[obj[curr.x]] = { ...arr2[obj[curr.x]], ...curr }
-    } else {
-      obj[curr.x] = arr2.length
-      arr2.push(curr)
-    }
-    return arr2
-  }) */
+  /*   arr.reduce((prev, curr, idx) => {
+      if (idx === 1) {
+        obj[prev.x] = 0
+        arr2.push(prev)
+      }
+      if (hasOwn(obj, curr.x)) {
+        arr2[obj[curr.x]] = { ...arr2[obj[curr.x]], ...curr }
+      } else {
+        obj[curr.x] = arr2.length
+        arr2.push(curr)
+      }
+      return arr2
+    }) */
   /* console.log(arr2)
   console.log(arr) */
 }
@@ -146,7 +146,7 @@ var reg2 = /(\w*\/+)\w*$/
 var str2 = 'platform/saas/20200305/f812c3e101e442d39691b0842430c8b0.jpg'
 console.log(str2.replace(reg2, '$1' + 'press_'))
 
-export function MoveZero (arr) {
+function MoveZero (arr) {
   const len = arr.length
   if (len <= 1) {
     return arr
@@ -171,3 +171,48 @@ export function MoveZero (arr) {
   }
   return arr
 }
+
+const hasOwn = Object.prototype.hasOwnProperty
+
+function generateUniqueKey (list, generateKey = '', keyName = '_uKey') {
+  if (Array.isArray(list) && list.length) {
+    const set = new Set()
+    let key = ''
+    list.forEach((item, idx) => {
+      if (generateKey && item[generateKey] != null) {
+        key = item[generateKey]
+        if (set.has(key)) {
+          key = key + String(idx)
+        }
+      } else {
+        key = generateUniqueId()
+      }
+      item[keyName] = key
+      set.add(key)
+    })
+  }
+  return list
+}
+
+function generateUniqueId () {
+  if (typeof window !== 'undefined') {
+    if (self?.crypto?.randomUUID) {
+      return self.crypto.randomUUID()
+    } else {
+      return Date.now().toString(36) + Math.random().toString(36).slice(1)
+    }
+  } else {
+    const {
+      randomUUID
+    } = require('node:crypto')
+    return randomUUID()
+  }
+}
+
+console.log(generateUniqueKey([
+  { a: 1, b: 2, c: 3 },
+  { a: 2, b: 3, c: 4 },
+  { a: 3, b: 3, c: 4 },
+  { a: 3, b: 3, c: 4 },
+  { a: 2, b: 3, c: 4 }
+], 'c', 'id'))
