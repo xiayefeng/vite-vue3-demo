@@ -179,7 +179,7 @@ export default {
     },
     getData () {
       reqGet('/api', { a: 1, b: 2 }, { signalRequest: 1 }).then(res => {
-        console.log(res)
+        // console.log(res)
       }).catch(err => {
         console.log(err)
       })
