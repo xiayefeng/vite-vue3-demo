@@ -6,19 +6,21 @@
  * @FilePath: \vite-vue3-demo\src\utils\cancleController.js
  * @Description: 
  */
-const reqMap = new Map()
-
 export default class CancelAxios {
+  #map = new Map()
   removePendingReq (url, type) {
-    const item = reqMap.get(url)
+    const item = this.#map.get(url)
     if (item) {
+      this.#map.delete(url)
       type === 'req' && item.abort()
-      reqMap.delete(url)
     }
   }
   addController (url, config) {
     const controller = new AbortController()
     config.signal = controller.signal
-    reqMap.set(url, controller)
+    this.#map.set(url, controller)
+  }
+  clear() {
+    this.#map.clear()
   }
 }

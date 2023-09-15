@@ -6,8 +6,11 @@ import qs from 'qs'
 // import { strHash } from './index'
 // import md5 from 'js-md5'
 import CancelAxios from './cancleController'
+import RequestStore from './requestStore'
+import { isPromise } from '@/utils'
 
 const cancelAxios = new CancelAxios()
+const requestStore = new RequestStore()
 // export const reqMap = new Map()
 
 /* const removePendingReq = (url, type) => {
@@ -96,7 +99,17 @@ export default ({ url, method = 'get', params = {}, data = {}, ...rest } = {}) =
   if (/[A-Z]/.test(method)) {
     method = method.toLocaleLowerCase()
   }
-  return new Promise((resolve, reject) => {
+  if (rest.useMemo && method === 'get') {
+    if (requestStore.has(url)) {
+      const res = requestStore.getStore(url)
+      if (isPromise(res)) {
+        return res
+      } else {
+        return Promise.resolve(res)
+      }
+    }
+  }
+  const p = new Promise((resolve, reject) => {
     instance.request({
       url,
       params,
@@ -104,8 +117,14 @@ export default ({ url, method = 'get', params = {}, data = {}, ...rest } = {}) =
       method,
       ...rest
     }).then((res) => {
+      if (rest.useMemo && method === 'get') {
+        requestStore.setStore(url, res)
+      }
       return resolve(res)
     }).catch(error => {
+      if (rest.useMemo && method === 'get') {
+        requestStore.delStore(url)
+      }
       // console.log(error)
       if (axios.isCancel(error)) {
         console.log('Request canceled', error.message)
@@ -113,4 +132,10 @@ export default ({ url, method = 'get', params = {}, data = {}, ...rest } = {}) =
       return reject(error)
     })
   })
+  if (rest.useMemo && method === 'get') {
+    if (!requestStore.has(url)) {
+      requestStore.setStore(url, p)
+    }
+  }
+  return p
 }

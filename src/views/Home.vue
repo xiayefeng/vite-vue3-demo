@@ -81,6 +81,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 // import util from 'utils'
 // import showLoading from '@/components/common/showLoading'
 import { reqGet, reqPost } from '@/api/common.js'
+import { getInfo } from '@/api/test.js'
 export default {
   name: 'HomePage',
   components: {
@@ -103,7 +104,7 @@ export default {
       console.log(err)
     }) */
     this.getData()
-    this.getData()
+    // this.getData()
   },
   mounted () {
 
@@ -182,11 +183,22 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-      reqGet('/api/userInfo', { a: 3, b: 4 }).then(res => {
+      /* reqGet('/api/userInfo', { a: 3, b: 4 }).then(res => {
         console.log(res)
       }).catch(err => {
         console.log(err)
+      }) */
+      getInfo('/api/userInfo', { a: 3, b: 4 }).then(res => {
+        console.log(res)
       })
+      getInfo('/api/userInfo', { a: 3, b: 4 }).then(res => {
+        console.log(res)
+      })
+      setTimeout(() => {
+        getInfo('/api/userInfo', { a: 3, b: 4 }).then(res => {
+          console.log(res)
+        })
+      }, (1000));
     },
     setData () {
       reqPost('/api/user/setUserData', { name: '张三', phone: '123456', pw: 'daddd' })
