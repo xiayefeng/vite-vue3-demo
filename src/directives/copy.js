@@ -21,12 +21,13 @@ const handler = (val) => {
 export const copy = (app, options) => {
   app.directive('copy', {
     beforeMount(el, binding, vnode) {
+      console.log(el, binding, vnode, options)
     },
     mounted(el, {value}, vnode) {
       // console.log(el)
       el.$value = value
       // console.log(value)
-      // console.log(vnode)
+      console.log(vnode)
       el.handler = () => {
         handler(el.$value)
       }
@@ -34,8 +35,10 @@ export const copy = (app, options) => {
     },
     updated(el, {value}, vnode) {
       el.$value = value
+      console.log(vnode)
     },
     unmounted(el, binding, vnode) {
+      console.log(vnode)
       el.removeEventListener('click', el.handler)
     }
   })

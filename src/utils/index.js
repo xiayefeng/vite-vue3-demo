@@ -126,7 +126,7 @@ export const isNumber = function isNumber (value) {
 }
 
 export function close () {
-  window.open("about:blank", "_top").close()
+  window.open('about:blank', '_top').close()
 }
 
 export const isNumeric = function isNumeric (value) {
@@ -720,7 +720,9 @@ utils.parseBoolean = function (str) {
   var ret = false
   try {
     ret = JSON.parse(str)
-  } catch (e) { }
+  } catch (e) {
+    console.log(e)
+   }
 
   return ret
 }
@@ -876,7 +878,7 @@ export function fibonacci (n) {
 export function isWeixin () {
   var ua = navigator.userAgent.toLowerCase()
   return ua.match(/MicroMessenger/i) === 'micromessenger'
-};
+}
 
 // 获取微信版本号
 export function getWxVersion () {

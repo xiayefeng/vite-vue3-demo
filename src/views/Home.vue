@@ -117,7 +117,7 @@ export default {
       threshold: 0.5
     }
 
-    let observer = new IntersectionObserver(callback, options);
+    let observer = new IntersectionObserver(callback, options)
     const wrap = textWrap.childNodes
 
     function callback (entries, observer) {
@@ -135,7 +135,7 @@ export default {
 
     wrap.forEach(item => {
       // console.log(item)
-      observer.observe(item);
+      observer.observe(item)
     })
     console.log('home mounted')
     // console.log(top.window)
@@ -198,7 +198,7 @@ export default {
         getInfo('/api/userInfo', { a: 3, b: 4 }).then(res => {
           console.log(res)
         })
-      }, (1000));
+      }, (1000))
     },
     setData () {
       reqPost('/api/user/setUserData', { name: '张三', phone: '123456', pw: 'daddd' })

@@ -136,9 +136,9 @@ export default class Store {
     if (typeof key !== 'string') {
       throw new Error('Items key params must be string')
     }
-    if (lx === 1 && sessionStorage.hasOwnProperty(key)) {
+    if (lx === 1 && sessionStorage.hasOwn(key)) {
       sessionStorage.removeItem(key)
-    } else if (lx === 2 && localStorage.hasOwnProperty(key)) {
+    } else if (lx === 2 && localStorage.hasOwn(key)) {
       localStorage.removeItem(key)
     }
   }
@@ -163,7 +163,7 @@ export default class Store {
   checkStr (obj) {
     let target = obj
     if (this.checkedType(target) === 'Object') {
-      if (target.hasOwnProperty('isString2Object') && target.isString2Object) {
+      if (target.hasOwn('isString2Object') && target.isString2Object) {
         target = target.str
       }
     }

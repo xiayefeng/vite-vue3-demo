@@ -92,7 +92,7 @@ export default {
   components: {
     // SheetAction
   },
-  data () {
+  data() {
     // console.log('data---', this.$route.path)
     return {
       title: '',
@@ -103,18 +103,18 @@ export default {
       imageArr: [
         'https://user-gold-cdn.xitu.io/2017/6/22/b0cb03de9bfdeac20adc2381f86160e0?imageView2/1/w/800/h/600/q/85/format/webp/interlace/1',
         'https://user-gold-cdn.xitu.io/2019/10/15/16dcfbdcfd166872?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1',
-        'https://user-gold-cdn.xitu.io/2019/10/15/16dcd7d7f735f0f3?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1'
+        'https://user-gold-cdn.xitu.io/2019/10/15/16dcd7d7f735f0f3?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1',
       ],
       positionText: '',
-      bottomBtn: null
+      bottomBtn: null,
     }
   },
   computed: {
-    storeVal () {
+    storeVal() {
       return this.$store.state.val
-    }
+    },
   },
-  created () {
+  created() {
     console.log(this.$store.state.val)
     console.log('created---', this.$route.path)
     bsStore.setSession('aaa', 111133)
@@ -126,7 +126,7 @@ export default {
     bsStore.setSession('ccc', string)
     console.log(bsStore.getSession('ccc'))
   },
-  mounted () {
+  mounted() {
     this.title = '我的主页'
     this.bottomBtn = document.querySelector('.bottom-btn')
     oberverDOM(this.bottomBtn)
@@ -146,27 +146,27 @@ export default {
     this.testAsync([
       {
         time: 300,
-        id: '1'
+        id: '1',
       },
       {
         time: 200,
-        id: '2'
+        id: '2',
       },
       {
         time: 1000,
-        id: '3'
-      }
+        id: '3',
+      },
     ])
 
-    setInterval(() => { }, 1000)
+    setInterval(() => {}, 1000)
   },
   methods: {
-    showFaAction () {
+    showFaAction() {
       this.$store.commit('changeVal', 5)
       utils.log.default('哈哈哈')
       this.showSelect = true
     },
-    setIndexedDB () {
+    setIndexedDB() {
       setData('mytest', 236333)
         .then((res) => {
           // console.log(res)
@@ -175,7 +175,7 @@ export default {
           console.log(err)
         })
     },
-    getIndexedDB () {
+    getIndexedDB() {
       getData('mytest')
         .then((res) => {
           console.log(res)
@@ -184,7 +184,7 @@ export default {
           console.log(err)
         })
     },
-    delIndexedDB () {
+    delIndexedDB() {
       removeData('mytest')
         .then((res) => {
           console.log(res)
@@ -195,17 +195,17 @@ export default {
       removeData(1)
       removeData(2)
     },
-    stopBubble () {
+    stopBubble() {
       return false
     },
-    fn (res, idx) {
+    fn(res, idx) {
       console.log(idx)
       console.log(res)
     },
-    changText (e) {
+    changText(e) {
       // console.log(e.code)
     },
-    search (e) {
+    search(e) {
       timer && clearTimeout(timer)
       // console.log(e.which)
       if (e.which === 13) {
@@ -224,7 +224,7 @@ export default {
         timer = null
       }, 100)
     },
-    async testAsync (arr) {
+    async testAsync(arr) {
       let arr2 = []
       for (let item of arr) {
         const response = await myFn(item)
@@ -233,36 +233,36 @@ export default {
       }
       console.log(arr2)
     },
-    throttle () {
+    throttle() {
       isInViewPort(this.bottomBtn)
       // console.log(isInViewPort(this.bottomBtn))
     },
-    debounce () {
+    debounce() {
       console.log('debounce')
       // console.log('time ---->' + Date.now())
     },
-    closeMask () {
+    closeMask() {
       this.showSelect = false
     },
-    goTable () {
+    goTable() {
       this.$router.push('/table')
     },
-    certPerson () {
+    certPerson() {
       this.$router.push('/photo')
     },
-    uploadImg () {
+    uploadImg() {
       this.$router.push('/imgUpload')
     },
-    mediaFile () {
+    mediaFile() {
       this.$router.push('/mediaFile')
     },
-    goExcel () {
+    goExcel() {
       this.$router.push('/excel')
     },
-    inputValOberve () {
+    inputValOberve() {
       this.$router.push('/inputOberve')
     },
-    downloadImg () {
+    downloadImg() {
       let url =
         'http://aicare.oss-cn-shenzhen.aliyuncs.com/test/platform/poster/293cb0af34054e40aa6031efa62429ce/user/39025002da964ec9b3e997b0bbc781ae.jpg'
       // savePicture(url)
@@ -275,7 +275,7 @@ export default {
       }) */
       this.downLoad(url)
     },
-    downLoad (url) {
+    downLoad(url) {
       // console.log(url)
       var oA = document.createElement('a')
       oA.download = '扫码关注.jpg' // 设置下载的文件名，默认是'下载'
@@ -284,7 +284,7 @@ export default {
       oA.click()
       oA.remove() // 下载之后把创建的元素删除
     },
-    getLocation () {
+    getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -304,14 +304,14 @@ export default {
           {
             enableHighAccuracy: false, // 位置是否精确获取
             timeout: 5000, // 获取位置允许的最长时间
-            maximumAge: 1500 // 多久更新获取一次位置
+            maximumAge: 1500, // 多久更新获取一次位置
           }
         )
       } else {
         alert('不支持获取位置信息!')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

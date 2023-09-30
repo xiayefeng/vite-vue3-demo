@@ -62,7 +62,7 @@ export default defineConfig({
     port: 9988,
     open: false,
     host: '0.0.0.0',
-    https: true,
+    https: false,
     proxy: {
       '/api': {
         // target: 'http://192.168.56.1:3000',
