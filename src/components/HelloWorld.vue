@@ -1,12 +1,22 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 defineProps({
   msg: {
     type: String,
-    default: ''
-  }
+    default: '',
+  },
 })
+
+function goDetail() {
+  window.open('#/about/1')
+}
+
+function setSession() {
+  window.sessionStorage.setItem('testKey', 1)
+}
+
+onMounted(() => {})
 
 const count = ref(0)
 </script>
@@ -47,6 +57,19 @@ const count = ref(0)
   >
     count is: {{ count }}
   </button>
+  <button
+    type="button"
+    class="url-link"
+    @click="goDetail"
+  >
+    go ablout
+  </button>
+  <button
+    class="url-link"
+    @click="setSession"
+  >
+    set session
+  </button>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
@@ -56,5 +79,8 @@ const count = ref(0)
 <style scoped>
 a {
   color: #42b983;
+}
+.url-link {
+  margin-left: 10px;
 }
 </style>
