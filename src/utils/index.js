@@ -834,6 +834,17 @@ export function submitNoRepeat (fn) {
   }
 }
 
+function deprecate(fn, oldApi, newApi) {
+  const message = `The ${oldApi} is deprecated.
+Please use the ${newApi} instead.`
+
+  return function(...args) {
+    console.warn(message)
+    return fn.apply(this, args)
+  }
+}
+
+
 export function submitNoRepeatAndDebounce (fn, wait) {
   let isSending = false
   let lastTime
