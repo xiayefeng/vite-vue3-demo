@@ -399,7 +399,8 @@ export function flatArray (arr) {
 
 // 检测属性是否在原型链上
 export function hasPrototypeProperty (object, name) {
-  return !Object.hasPrototypeProperty(name) && name in object
+  if (object == null) return false
+  return name in object && !Object.prototype.hasOwnProperty.call(object, name)
 }
 
 export function randomColor () {
@@ -434,11 +435,7 @@ export function isPromise (val) {
 }
 
 export function isNum (val) {
-  // return typeof val === 'number' && !isNaN(val)
-  if (typeof val !== 'number') {
-    return false
-  }
-  return Number.isSafeInteger(parseInt(val))
+  return typeof val === 'number' && Number.isFinite(val)
 }
 
 export function getToday (operate = '-') {
@@ -487,12 +484,10 @@ export function dateFormat ({ date = new Date(), format = 'yyyy-MM-dd' } = {}) {
 
 export function addDays (date, num = 1) {
   if (date instanceof Date) {
-    const days = date.getDate()
-    date.setDate(days + 1)
-    return date
-  } else {
+    date.setDate(date.getDate() + num)
     return date
   }
+  return date
 }
 
 utils.testFn = function ({ success, fail, time = 500 }) {
@@ -666,8 +661,28 @@ export function getOneMonth (initial = false) {
   return [str1, str2]
 }
 
-export function uniqueArr (arr) {
-  return Array.from(new Set(arr))
+/**
+ * 数组去重
+ * @param {Array} arr - 需要去重的数组
+ * @returns {Array} - 去重后的新数组
+ * @example
+ * uniqueArr([1, 2, 2, 3]) // [1, 2, 3]
+ * uniqueArr(['a', 'b', 'a']) // ['a', 'b']
+ */
+export function uniqueArr(arr) {
+  // 参数校验
+  if (!Array.isArray(arr)) {
+    console.warn('uniqueArr: 参数必须是数组类型')
+    return []
+  }
+  
+  // 空数组直接返回
+  if (arr.length === 0) {
+    return []
+  }
+
+  // 使用 Set 去重，性能最优
+  return [...new Set(arr)]
 }
 
 export function isDev () {
@@ -834,6 +849,17 @@ export function submitNoRepeat (fn) {
   }
 }
 
+function deprecate(fn, oldApi, newApi) {
+  const message = `The ${oldApi} is deprecated.
+Please use the ${newApi} instead.`
+
+  return function(...args) {
+    console.warn(message)
+    return fn.apply(this, args)
+  }
+}
+
+
 export function submitNoRepeatAndDebounce (fn, wait) {
   let isSending = false
   let lastTime
@@ -877,16 +903,14 @@ export function fibonacci (n) {
 // 判断是否是微信
 export function isWeixin () {
   var ua = navigator.userAgent.toLowerCase()
-  return ua.match(/MicroMessenger/i) === 'micromessenger'
+  return /micromessenger/i.test(ua)
 }
 
 // 获取微信版本号
 export function getWxVersion () {
-  if (!isWeixin()) {
-    return 0
-  }
-  let wechatInfo = navigator.userAgent.match(/MicroMessenger\/([\d.]+)/i)
-  return wechatInfo[1]
+  if (!isWeixin()) return 0
+  const match = navigator.userAgent.match(/MicroMessenger\/([\d.]+)/i)
+  return match ? match[1] : 0
 }
 
 export function returnFileSize (number) {
@@ -916,9 +940,6 @@ export function memoize (func, resolver) {
   if (typeof func !== 'function' || (resolver != null && typeof resolver !== 'function')) {
     throw new TypeError('Expected a function')
   }
-  !memoize.clear && (memoize.clear = function () {
-    memoized.cache.clear()
-  })
   const memoized = function (...args) {
     const key = resolver ? resolver.apply(this, args) : args[0]
     const cache = memoized.cache
@@ -1042,13 +1063,9 @@ export function isInView (element, parentEl) {
 export function addClass (el, className) {
   let element = getElement(el)
   if (element) {
-    let classList = el.classList
-    if (classList.contains(className)) {
-      return element
-    } else {
-      classList.add(className)
-      return element
-    }
+    let classList = element.classList
+    if (!classList.contains(className)) classList.add(className)
+    return element
   }
 }
 
@@ -1059,21 +1076,16 @@ export function domToString (node) {
 export function removeClass (el, className) {
   let element = getElement(el)
   if (element) {
-    let classList = el.classList
-    if (classList.contains(className)) {
-      classList.remove(className)
-      return element
-    } else {
-      return element
-    }
+    let classList = element.classList
+    if (classList.contains(className)) classList.remove(className)
+    return element
   }
 }
 
 export function toggleClass (el, className) {
   let element = getElement(el)
   if (element) {
-    let classList = el.classList
-    classList.toggle(className)
+    element.classList.toggle(className)
     return element
   }
 }
@@ -1221,10 +1233,10 @@ export const isIos = () => {
 
 // 获取url参数
 export const getQueryString = (name) => {
+  const search = window.location.search.slice(1)
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
-  const search = window.location.search.split('?')[1] || ''
-  const r = search.match(reg) || []
-  return r[2]
+  const m = search.match(reg)
+  return m ? decodeURIComponent(m[2]) : ''
 }
 
 export function getPerformance () {
